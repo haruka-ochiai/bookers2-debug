@@ -28,6 +28,9 @@
               <i class="fas fa-sign-out-alt"></i> Log out
             <% end %>
           </li>
+          
+   
+          
         <% else %>
           <li>
             <%= link_to root_path,class: 'nav-link text-light' do %>
@@ -58,7 +61,7 @@
   <% if user_signed_in? %>
     <div class= "search_form">
       <div class="row">
-        <div class= "col-md-8 offset-md-1 pt-2">
+        <div class= "col-md-8 offset-md-4 pt-2 pb-3 px-auto">
         <%= form_with url: search_path, local: true, method: :get do |f| %>
           <%= f.text_field :word %>
           <%= f.select :range, options_for_select([['User'], ['Book']]) %>
@@ -69,4 +72,5 @@
       </div>
     </div>
   <% end %>
+  
 </header>

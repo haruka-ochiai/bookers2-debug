@@ -26,11 +26,11 @@ class Book < ApplicationRecord
     elsif search == "foward_match"
       @book = Book.where("title LIKE?","#{word}%")
     elsif search == "backward_match"
-      @book = Book.where("name LIKE?","%#{word}")
+      @book = Book.where("title LIKE?","%#{word}")
     elsif search == "partial_match"
-      @book = Book.where("name LIKE?","%#{word}%")
+      @book = Book.where("title LIKE?","%#{word}%")
     else
-      @ubook = Book.all
+      @book = Book.all
     end
   end  
   
