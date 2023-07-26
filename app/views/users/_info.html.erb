@@ -10,19 +10,11 @@
   </tr>
   <tr>
     <th>Follows</th>
-    <td>
-      <%= link_to follows_user_path(user) do %>
-        <h6><%= user.followers.count %></h6>
-      <% end %>
-    </td>
+    <th><%= link_to user.followings.count, user_followings_path(user) %></th>
   </tr>
   <tr>
     <th>Followers</th>
-    <td>
-      <%= link_to followers_user_path(user) do %>
-        <h6><%= user.followeds.count %></h6>
-      <% end %>
-    </td>
+    <th><%= link_to user.followers.count, user_followers_path(user) %></th>
   </tr>
   <tr>
     <td>
