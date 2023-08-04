@@ -2,23 +2,23 @@ class BooksController < ApplicationController
 
   def show
     @book = Book.find(params[:id])
+    unless ReadCount.find_by(user_id: current_user.id, book_id: @book.id)
+      current_user.read_counts.create(book_id: @book.id)
+    end
+    
+    
     @user = @book.user
     @new_book = Book.new
     @book_comment = BookComment.new
-    
-    read_count = ReadCount.new(book_id: @book.id, user_id: current_user.id)
-    read_count.save
-    current_user.read_counts.create(book_id: @book.id)
   end
-end
+    
+    
 
   def index
     to = Time.current.at_end_of_day
     from = (to - 6.day).at_beginning_of_day
-    @books = Book.includes(:favorited_users).
-      sort_by {|x|
-        x.favorited_users.includes(:favorites).where(created_at: from...to).size
-      }.reverse
+    @books = Book.includes(:favorites).sort_by { |book| -book.favorites.where(created_at: from...to).count }
+    
     @book = Book.new
   end
 
@@ -62,3 +62,4 @@ end
   def book_params
     params.require(:book).permit(:title, :body)
   end
+end
