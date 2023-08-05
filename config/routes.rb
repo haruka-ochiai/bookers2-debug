@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get "home/about"=>"homes#about"
   get "search" => "searches#search"
   
+  resources :groups, only: [:new, :index, :show, :create, :edit, :update]
   resources :messages, only: [:create]
   resources :rooms, only: [:create, :show]
   
