@@ -7,6 +7,14 @@ class Book < ApplicationRecord
   has_many :read_counts, dependent: :destroy
   
   
+  scope :latest, -> { order(created_at: :desc)}
+  scope :old, -> { order(created_at: :asc)}
+  scope :most_favorites, -> {
+    left_joins(:favorites)
+    .group('book_id')
+    .order('COUNT(favorites.id) DESC')
+  }
+  
   def get_profile_image(width,height)
     unless profile_image.attached?
       file_path = Rails.root.join('app/assets/images/no_image.jpg')
