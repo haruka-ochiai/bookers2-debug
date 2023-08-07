@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   root :to =>"homes#top"
   get "home/about"=>"homes#about"
   get "search" => "searches#search"
+  get 'tag_search/search', to: 'tag_search#search'
+  
   
   resources :groups, only: [:new, :index, :show, :create, :edit, :update] do
     resource :group_users, only: [:create, :destroy]
