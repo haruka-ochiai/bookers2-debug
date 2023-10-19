@@ -28,7 +28,7 @@
           </div>
           </td>
           <td><p>コメント数：<span id = "comment_count"><%= @book.book_comments.count %></span></p></td>
-
+          <td><%= render "static_rate", book: @book %></td>
           <td>
             <p>閲覧数：<%= @book.read_counts.count %></p>
           </td>
