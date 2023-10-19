@@ -5,17 +5,14 @@ class BooksController < ApplicationController
     unless ReadCount.find_by(user_id: current_user.id, book_id: @book.id)
       current_user.read_counts.create(book_id: @book.id)
     end
-    
-    
+
     @user = @book.user
     @new_book = Book.new
     @book_comment = BookComment.new
   end
-    
-    
 
   def index
-    
+
     if params[:latest]
       @books = Book.latest
     elsif params[:old]
@@ -25,7 +22,7 @@ class BooksController < ApplicationController
     else
       @books = Book.all
     end
-    
+
     @book = Book.new
   end
 
@@ -45,7 +42,7 @@ class BooksController < ApplicationController
     unless book.user_id == current_user.id
       redirect_to books_path
     end
-    
+
     @book = Book.find(params[:id])
   end
 
@@ -67,6 +64,6 @@ class BooksController < ApplicationController
   private
 
   def book_params
-    params.require(:book).permit(:title, :body, :tag)
+    params.require(:book).permit(:title, :body, :tag, :star)
   end
 end
