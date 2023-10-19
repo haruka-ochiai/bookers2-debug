@@ -1,12 +1,12 @@
 <div class='container'>
   <div class='row'>
-    <div class='col-md-3'>
+    <div class='col-3'>
       <h2>User info</h2>
       <%= render 'users/info', user: @user %>
       <h2 class="mt-3">New book</h2>
       <%= render 'form', book: @new_book %>
     </div>
-    <div class='col-md-8 offset-md-1'>
+    <div class='col-8 offset-1'>
   		<h2>Book detail</h2>
   		<table class='table'>
   		  <tr>
@@ -19,7 +19,7 @@
           <td><%= @book.body %></td>
           <td>
             <% if @book.tag.present? %>
-              <%= link_to @book.tag, tagsearches_search_path(content: @book.tag) %>
+              <%= link_to @book.tag, tag_search_search_path(content: @book.tag) %>
             <% end %>
           </td>
           <td>
@@ -28,6 +28,7 @@
           </div>
           </td>
           <td><p>コメント数：<span id = "comment_count"><%= @book.book_comments.count %></span></p></td>
+
           <td>
             <p>閲覧数：<%= @book.read_counts.count %></p>
           </td>
@@ -38,15 +39,15 @@
           <% end %>
           </td>
        </table>
-     
+
       <div id ="comment-lists">
       <%= render "book_comments/comment-lists", { book: @book, book_comment: @book_comment } %>
       </div>
-           
+
       <div id="comment-form">
       <%= render "book_comments/form", book: @book, book_comment: @book_comment %>
       </div>
-         
+
     </div>
   </div>
 </div>
