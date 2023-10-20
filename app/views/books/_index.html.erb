@@ -1,7 +1,7 @@
+<%=link_to '新しい順', books_path(latest: true), class: 'link' %>
+<%= link_to '古い順', books_path(old: true), class: 'link' %>
+<%= link_to 'いいねが多い順', books_path(most_favorites: true), class: 'link' %>
 <table class='table table-hover table-inverse'>
-  <%=link_to '新しい順', books_path(latest: true) %>
-  <%= link_to '古い順', books_path(old: true) %>
-  <%= link_to 'いいねが多い順', books_path(most_favorites: true) %>
   <thead>
     <tr>
       <th></th>
@@ -22,7 +22,7 @@
         <td><%= book.body %></td>
         <td>
           <% if book.tag.present? %>
-              <%= link_to book.tag, tag_search_search_path(content: book.tag) %>
+            <%= link_to book.tag, tag_search_search_path(content: book.tag) %>
           <% end %>
         </td>
         <td id= "favorite-btn_<%= book.id %>">
