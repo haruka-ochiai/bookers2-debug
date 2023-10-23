@@ -1,18 +1,18 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :ensure_correct_user, only: [:edit, :update]
-  
+
   def show
     @user = User.find(params[:id])
     @books = @user.books
     @book = Book.new
-    @today_book =  @books.created_today
-    @yesterday_book = @books.created_yesterday
-    @this_week_book = @books.created_this_week
-    @last_week_book = @books.created_last_week
-    @the_day_before = 0 
-    @the_week_before = 0
-    
+    if params[:created_at] == ""
+      @search_book = "日付を選択してください"
+    else
+      create_at = params[:created_at]
+      @search_book = @books.where([' created_at LIKE ? ', "#{create_at}%"]).count
+    end
+
     @currentUserEntry=Entry.where(user_id: current_user.id)
     @userEntry=Entry.where(user_id: @user.id)
     if @user.id == current_user.id
@@ -44,7 +44,7 @@ class UsersController < ApplicationController
     unless user.id == current_user.id
       redirect_to user_path(current_user)
     end
-    
+
     @user = User.find(params[:id])
   end
 
@@ -56,9 +56,9 @@ class UsersController < ApplicationController
       render "edit"
     end
   end
-  
- 
-    
+
+
+
   private
 
   def user_params
